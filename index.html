@@ -1,0 +1,870 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Portfolio · Proyectos</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,500;0,700;1,700;1,800&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --red: #e10600;
+        --red-soft: rgba(225, 6, 0, 0.14);
+        --bg: #0a0a0b;
+        --bg2: #111113;
+        --card: #141416;
+        --line: #242428;
+        --text: #f2f2f3;
+        --muted: #8b8b93;
+        --radius: 14px;
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        font-family: "Inter", system-ui, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        min-height: 100vh;
+        line-height: 1.5;
+        -webkit-font-smoothing: antialiased;
+        background-image:
+          radial-gradient(
+            900px 400px at 85% -10%,
+            rgba(225, 6, 0, 0.13),
+            transparent 60%
+          ),
+          linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+        background-size:
+          auto,
+          48px 48px,
+          48px 48px;
+      }
+      .topbar {
+        height: 4px;
+        background: repeating-linear-gradient(
+          90deg,
+          var(--red) 0 40px,
+          #fff 40px 48px,
+          var(--red) 48px 88px
+        );
+      }
+      .wrap {
+        max-width: 1180px;
+        margin: 0 auto;
+        padding: 0 28px;
+      }
+
+      /* HERO */
+      header.hero {
+        padding: 72px 0 56px;
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 48px;
+        align-items: center;
+      }
+      .photo {
+        position: relative;
+        width: 200px;
+        height: 240px;
+        border-radius: 6px 6px 6px 36px;
+        background: var(--bg2);
+        border: 1px solid var(--line);
+        overflow: hidden;
+      }
+      .photo::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        height: 4px;
+        background: var(--red);
+      }
+      .photo img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+      .photo.empty img {
+        display: none;
+      }
+      .photo .ph {
+        position: absolute;
+        inset: 0;
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        color: var(--muted);
+        font-size: 12.5px;
+        text-align: center;
+        padding: 16px;
+      }
+      .photo.empty .ph {
+        display: flex;
+      }
+      .photo .ph .initials {
+        font-family: "Barlow Condensed", sans-serif;
+        font-style: italic;
+        font-weight: 800;
+        font-size: 84px;
+        line-height: 1;
+        letter-spacing: 0.02em;
+        color: var(--text);
+      }
+      .photo .ph .initials::first-letter {
+        color: var(--red);
+      }
+      .eyebrow {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 12px;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--red);
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 14px;
+      }
+      .eyebrow::before {
+        content: "";
+        width: 34px;
+        height: 2px;
+        background: var(--red);
+      }
+      h1 {
+        font-family: "Barlow Condensed", sans-serif;
+        font-style: italic;
+        font-weight: 800;
+        font-size: clamp(46px, 7vw, 92px);
+        line-height: 0.92;
+        letter-spacing: -0.01em;
+        text-transform: uppercase;
+      }
+      h1 span {
+        color: var(--red);
+      }
+      .tagline {
+        margin-top: 18px;
+        color: var(--muted);
+        font-weight: 300;
+        font-size: 17px;
+        max-width: 540px;
+      }
+      .stats {
+        display: flex;
+        gap: 36px;
+        margin-top: 30px;
+        flex-wrap: wrap;
+      }
+      .stat b {
+        font-family: "Barlow Condensed", sans-serif;
+        font-style: italic;
+        font-size: 38px;
+        font-weight: 700;
+        display: block;
+        line-height: 1;
+      }
+      .stat small {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 10.5px;
+        text-transform: uppercase;
+        letter-spacing: 0.16em;
+        color: var(--muted);
+      }
+
+      /* CONTROLES */
+      .controls {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        background: rgba(10, 10, 11, 0.85);
+        backdrop-filter: blur(14px);
+        border-top: 1px solid var(--line);
+        border-bottom: 1px solid var(--line);
+      }
+      .controls .wrap {
+        display: flex;
+        gap: 14px;
+        align-items: center;
+        padding-top: 14px;
+        padding-bottom: 14px;
+        flex-wrap: wrap;
+      }
+      .field {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        background: var(--bg2);
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        padding: 0 12px;
+        height: 42px;
+        transition: border-color 0.2s;
+      }
+      .field:focus-within {
+        border-color: var(--red);
+      }
+      .field svg {
+        width: 16px;
+        height: 16px;
+        stroke: var(--muted);
+        flex: none;
+      }
+      .field input,
+      .field select {
+        background: transparent;
+        border: 0;
+        outline: 0;
+        color: var(--text);
+        font: inherit;
+        font-size: 14px;
+        height: 100%;
+        min-width: 0;
+      }
+      .field select option {
+        background: #111;
+      }
+      .field.search {
+        flex: 1;
+        min-width: 200px;
+      }
+      .chips {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        padding: 0 0 14px;
+      }
+      .chip {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 11.5px;
+        padding: 5px 12px;
+        border-radius: 20px;
+        border: 1px solid var(--line);
+        color: var(--muted);
+        background: transparent;
+        cursor: pointer;
+        transition: 0.2s;
+      }
+      .chip:hover {
+        border-color: var(--red);
+        color: var(--text);
+      }
+      .chip.on {
+        background: var(--red);
+        border-color: var(--red);
+        color: #fff;
+      }
+
+      /* GRID DE CARPETAS */
+      main {
+        padding: 48px 0 90px;
+      }
+      .section-title {
+        font-family: "Barlow Condensed", sans-serif;
+        font-style: italic;
+        font-weight: 700;
+        font-size: 28px;
+        text-transform: uppercase;
+        letter-spacing: 0.02em;
+        margin-bottom: 28px;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+      }
+      .section-title::after {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: var(--line);
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 34px 26px;
+      }
+
+      a.folder {
+        position: relative;
+        display: block;
+        text-decoration: none;
+        color: inherit;
+        margin-top: 18px;
+        animation: rise 0.5s both;
+        transition: transform 0.25s;
+      }
+      @keyframes rise {
+        from {
+          opacity: 0;
+          transform: translateY(14px);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+      a.folder::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: -18px;
+        width: 110px;
+        height: 20px;
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-bottom: 0;
+        border-radius: 10px 10px 0 0;
+        clip-path: polygon(0 0, 82% 0, 100% 100%, 0 100%);
+        transition:
+          background 0.25s,
+          border-color 0.25s;
+      }
+      a.folder .body {
+        position: relative;
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 0 var(--radius) var(--radius) var(--radius);
+        padding: 24px 22px 20px;
+        min-height: 200px;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        transition:
+          border-color 0.25s,
+          box-shadow 0.25s,
+          background 0.25s;
+      }
+      a.folder .body::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        height: 3px;
+        width: 0;
+        background: var(--red);
+        transition: width 0.35s ease;
+      }
+      a.folder:hover {
+        transform: translateY(-6px);
+      }
+      a.folder:hover::before {
+        background: var(--red);
+        border-color: var(--red);
+      }
+      a.folder:hover .body {
+        border-color: var(--red);
+        box-shadow: 0 18px 40px -18px rgba(225, 6, 0, 0.45);
+        background: #17171a;
+      }
+      a.folder:hover .body::after {
+        width: 100%;
+      }
+      .num {
+        position: absolute;
+        right: 16px;
+        top: 12px;
+        font-family: "Barlow Condensed", sans-serif;
+        font-style: italic;
+        font-weight: 800;
+        font-size: 54px;
+        line-height: 1;
+        color: rgba(255, 255, 255, 0.05);
+        transition: color 0.25s;
+      }
+      a.folder:hover .num {
+        color: var(--red-soft);
+      }
+      .repo-name {
+        font-family: "Barlow Condensed", sans-serif;
+        font-style: italic;
+        font-weight: 700;
+        font-size: 26px;
+        line-height: 1.05;
+        text-transform: uppercase;
+        word-break: break-word;
+        padding-right: 48px;
+      }
+      .desc {
+        margin: 10px 0 16px;
+        color: var(--muted);
+        font-size: 13.5px;
+        font-weight: 300;
+        flex: 1;
+      }
+      .topics {
+        display: flex;
+        gap: 6px;
+        flex-wrap: wrap;
+        margin-bottom: 14px;
+      }
+      .topics span {
+        font-size: 10.5px;
+        font-family: "JetBrains Mono", monospace;
+        color: var(--muted);
+        border: 1px solid var(--line);
+        padding: 2px 8px;
+        border-radius: 12px;
+      }
+      .meta {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 11.5px;
+        color: var(--muted);
+        border-top: 1px solid var(--line);
+        padding-top: 14px;
+      }
+      .lang {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        color: var(--text);
+      }
+      .dot {
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+      }
+      .meta .sp {
+        flex: 1;
+      }
+      .go {
+        color: var(--red);
+        font-weight: 500;
+        transition: transform 0.25s;
+      }
+      a.folder:hover .go {
+        transform: translateX(4px);
+      }
+
+      .state {
+        grid-column: 1/-1;
+        text-align: center;
+        padding: 70px 20px;
+        border: 1px dashed var(--line);
+        border-radius: var(--radius);
+        color: var(--muted);
+      }
+      .state b {
+        display: block;
+        font-family: "Barlow Condensed", sans-serif;
+        font-style: italic;
+        font-size: 30px;
+        color: var(--text);
+        text-transform: uppercase;
+        margin-bottom: 6px;
+      }
+      .skeleton {
+        height: 220px;
+        border-radius: var(--radius);
+        background: linear-gradient(
+          100deg,
+          var(--card) 30%,
+          #1c1c20 50%,
+          var(--card) 70%
+        );
+        background-size: 200% 100%;
+        animation: sh 1.3s infinite;
+      }
+      @keyframes sh {
+        to {
+          background-position: -200% 0;
+        }
+      }
+
+      footer {
+        border-top: 1px solid var(--line);
+        padding: 30px 0;
+        color: var(--muted);
+        font-size: 12.5px;
+        font-family: "JetBrains Mono", monospace;
+      }
+      footer .wrap {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      footer em {
+        color: var(--red);
+        font-style: normal;
+      }
+
+      @media (max-width: 760px) {
+        header.hero {
+          grid-template-columns: 1fr;
+          gap: 30px;
+          padding-top: 44px;
+        }
+        .photo {
+          width: 160px;
+          height: 190px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="topbar"></div>
+
+    <div class="wrap">
+      <header class="hero">
+        <!-- ============ TU FOTO ============. -->
+        <div class="photo" id="photo">
+          <img src="foto.jpg" alt="Mi foto" id="photoImg" />
+          <div class="ph">
+            <span class="initials">MC</span>
+          </div>
+        </div>
+
+        <div>
+          <div class="eyebrow">Portfolio · Desarrollo web</div>
+          <!-- Cambia "Tu Nombre" por tu nombre -->
+          <h1><span>Marc Cirio Fuentes</span><br />Proyectos</h1>
+          <p class="tagline">
+            Una colección de lo que construyo, aprendo y publico. Selecciona una
+            carpeta para abrir el proyecto.
+          </p>
+          <div class="stats">
+            <div class="stat"><b id="sDirs">0</b><small>Proyectos</small></div>
+            <div class="stat">
+              <b id="sLangs">0</b><small>Tecnologías</small>
+            </div>
+            <div class="stat"><b id="sWeb">0</b><small>Con web</small></div>
+          </div>
+        </div>
+      </header>
+    </div>
+
+    <div class="controls">
+      <div class="wrap">
+        <div class="field search">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke-width="1.8"
+            stroke-linecap="round"
+          >
+            <circle cx="11" cy="11" r="7" />
+            <path d="M20 20l-4-4" />
+          </svg>
+          <input id="q" placeholder="Buscar proyecto…" autocomplete="off" />
+        </div>
+        <div class="field">
+          <select id="sort">
+            <option value="name">Nombre A–Z</option>
+            <option value="files">Más archivos</option>
+            <option value="web">Con web primero</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <main class="wrap">
+      <div class="chips" id="chips"></div>
+      <div class="section-title">Garaje de proyectos</div>
+      <div class="grid" id="grid">
+        <div class="skeleton"></div>
+        <div class="skeleton"></div>
+        <div class="skeleton"></div>
+      </div>
+    </main>
+
+    <footer>
+      <div class="wrap">
+        <span
+          >© <span id="year"></span> · Hecho con <em>pasión</em> y mucho
+          código</span
+        >
+        <span id="source"></span>
+      </div>
+    </footer>
+
+    <script>
+      /* Carpetas de la raíz que NO se muestran como proyecto */
+      const IGNORE = new Set([
+        "node_modules",
+        "assets",
+        "img",
+        "images",
+        "css",
+        "js",
+        "static",
+        "public",
+        "dist",
+        "build",
+      ]);
+
+      const $ = (s) => document.querySelector(s);
+      const esc = (s) =>
+        String(s ?? "").replace(
+          /[&<>"']/g,
+          (c) =>
+            ({
+              "&": "&amp;",
+              "<": "&lt;",
+              ">": "&gt;",
+              '"': "&quot;",
+              "'": "&#39;",
+            })[c],
+        );
+      $("#year").textContent = new Date().getFullYear();
+
+      /* Si la foto no existe, se muestra el aviso */
+      $("#photoImg").addEventListener("error", () =>
+        $("#photo").classList.add("empty"),
+      );
+
+      const EXT_LANG = {
+        js: "JavaScript",
+        mjs: "JavaScript",
+        jsx: "React",
+        ts: "TypeScript",
+        tsx: "React",
+        html: "HTML",
+        htm: "HTML",
+        css: "CSS",
+        scss: "SCSS",
+        php: "PHP",
+        py: "Python",
+        java: "Java",
+        vue: "Vue",
+        svelte: "Svelte",
+        sh: "Shell",
+        cs: "C#",
+        cpp: "C++",
+        c: "C",
+        go: "Go",
+        rs: "Rust",
+        kt: "Kotlin",
+        dart: "Dart",
+        sql: "SQL",
+        rb: "Ruby",
+      };
+      const LANG_COLORS = {
+        JavaScript: "#f1e05a",
+        TypeScript: "#3178c6",
+        HTML: "#e34c26",
+        CSS: "#563d7c",
+        Python: "#3572A5",
+        PHP: "#4F5D95",
+        Java: "#b07219",
+        Vue: "#41b883",
+        React: "#61dafb",
+        Svelte: "#ff3e00",
+        Shell: "#89e051",
+        "C#": "#178600",
+        "C++": "#f34b7d",
+        C: "#888",
+        SCSS: "#c6538c",
+        Go: "#00ADD8",
+        Rust: "#dea584",
+        Kotlin: "#A97BFF",
+        Dart: "#00B4AB",
+        SQL: "#e38c00",
+        Ruby: "#CC342D",
+      };
+
+      let projects = [],
+        activeLang = "all",
+        ctx = {};
+
+      /* Usuario y repo se deducen solos de la URL de GitHub Pages */
+      function detect() {
+        const h = location.hostname;
+        if (!h.endsWith(".github.io")) return null;
+        const user = h.split(".")[0];
+        const seg = location.pathname.split("/").filter(Boolean)[0];
+        const repo = seg && !/\.html?$/i.test(seg) ? seg : user + ".github.io";
+        return { user, repo };
+      }
+
+      async function gh(path) {
+        const res = await fetch("https://api.github.com" + path);
+        if (res.status === 404)
+          throw new Error(
+            "No se encuentra el repositorio (tiene que ser público).",
+          );
+        if (res.status === 403)
+          throw new Error(
+            "Límite de la API de GitHub alcanzado. Inténtalo de nuevo en unos minutos.",
+          );
+        if (!res.ok) throw new Error("Error al conectar con GitHub.");
+        return res.json();
+      }
+
+      async function load({ user, repo }) {
+        ctx = { user, repo };
+        try {
+          const info = await gh(`/repos/${user}/${repo}`);
+          ctx.branch = info.default_branch;
+          const tree = await gh(
+            `/repos/${user}/${repo}/git/trees/${encodeURIComponent(ctx.branch)}?recursive=1`,
+          );
+
+          const dirs = {};
+          tree.tree.forEach((t) => {
+            const parts = t.path.split("/");
+            if (parts.length < 2) return;
+            const top = parts[0];
+            if (top.startsWith(".") || IGNORE.has(top.toLowerCase())) return;
+            const d = (dirs[top] ||= {
+              name: top,
+              files: 0,
+              subdirs: new Set(),
+              langs: {},
+              hasIndex: false,
+            });
+            if (t.type === "blob") {
+              d.files++;
+              const file = parts[parts.length - 1];
+              if (parts.length === 2 && /^index\.html?$/i.test(file))
+                d.hasIndex = true;
+              if (parts.length > 2) d.subdirs.add(parts[1]);
+              const ext = file.includes(".")
+                ? file.split(".").pop().toLowerCase()
+                : "";
+              const lang = EXT_LANG[ext];
+              if (lang) d.langs[lang] = (d.langs[lang] || 0) + 1;
+            }
+          });
+          projects = Object.values(dirs).map((d) => {
+            const ranked = Object.entries(d.langs)
+              .sort((a, b) => b[1] - a[1])
+              .map((e) => e[0]);
+            return {
+              ...d,
+              subdirs: d.subdirs.size,
+              ranked,
+              main: ranked[0] || null,
+            };
+          });
+          $("#source").textContent = `${user}/${repo}`;
+          buildChips();
+          render();
+          stats();
+          if (!projects.length)
+            $("#grid").innerHTML =
+              '<div class="state"><b>Sin carpetas</b>No hay carpetas de proyecto en la raíz del repositorio.</div>';
+        } catch (err) {
+          projects = [];
+          $("#grid").innerHTML =
+            `<div class="state"><b>Algo ha fallado</b>${esc(err.message)}</div>`;
+          stats();
+        }
+      }
+
+      function stats() {
+        $("#sDirs").textContent = projects.length;
+        $("#sLangs").textContent = new Set(
+          projects.map((p) => p.main).filter(Boolean),
+        ).size;
+        $("#sWeb").textContent = projects.filter((p) => p.hasIndex).length;
+      }
+
+      function buildChips() {
+        const counts = {};
+        projects.forEach((p) => {
+          if (p.main) counts[p.main] = (counts[p.main] || 0) + 1;
+        });
+        const langs = Object.keys(counts).sort((a, b) => counts[b] - counts[a]);
+        $("#chips").innerHTML =
+          `<button class="chip on" data-l="all">Todos · ${projects.length}</button>` +
+          langs
+            .map(
+              (l) =>
+                `<button class="chip" data-l="${esc(l)}">${esc(l)} · ${counts[l]}</button>`,
+            )
+            .join("");
+      }
+      $("#chips").addEventListener("click", (e) => {
+        const b = e.target.closest(".chip");
+        if (!b) return;
+        activeLang = b.dataset.l;
+        document
+          .querySelectorAll(".chip")
+          .forEach((c) => c.classList.toggle("on", c === b));
+        render();
+      });
+
+      function render() {
+        if (!projects.length) return;
+        const q = $("#q").value.toLowerCase().trim();
+        const sort = $("#sort").value;
+        const list = projects
+          .filter(
+            (p) =>
+              (activeLang === "all" || p.main === activeLang) &&
+              (!q || p.name.toLowerCase().includes(q)),
+          )
+          .sort((a, b) =>
+            sort === "files"
+              ? b.files - a.files
+              : sort === "web"
+                ? b.hasIndex - a.hasIndex || a.name.localeCompare(b.name)
+                : a.name.localeCompare(b.name),
+          );
+
+        const grid = $("#grid");
+        if (!list.length) {
+          grid.innerHTML =
+            '<div class="state"><b>Sin resultados</b>Prueba con otra búsqueda o filtro.</div>';
+          return;
+        }
+        grid.innerHTML = list
+          .map((p, i) => {
+            // Con index.html → abre el proyecto; si no, abre la carpeta en GitHub
+            const href = p.hasIndex
+              ? "./" + encodeURIComponent(p.name) + "/"
+              : `https://github.com/${ctx.user}/${ctx.repo}/tree/${encodeURIComponent(ctx.branch)}/${encodeURIComponent(p.name)}`;
+            const color = LANG_COLORS[p.main] || "#E10600";
+            const nice = p.name.replace(/[-_]+/g, " ");
+            return `
+      <a class="folder" href="${esc(href)}" style="animation-delay:${Math.min(i, 12) * 45}ms">
+        <div class="body">
+          <span class="num">${String(i + 1).padStart(2, "0")}</span>
+          <div class="repo-name">${esc(nice)}</div>
+          <p class="desc">${p.files} archivo${p.files !== 1 ? "s" : ""}${p.subdirs ? ` · ${p.subdirs} subcarpeta${p.subdirs !== 1 ? "s" : ""}` : ""}</p>
+          ${
+            p.ranked.length
+              ? `<div class="topics">${p.ranked
+                  .slice(0, 4)
+                  .map((t) => `<span>${esc(t)}</span>`)
+                  .join("")}</div>`
+              : ""
+          }
+          <div class="meta">
+            ${p.main ? `<span class="lang"><i class="dot" style="background:${color}"></i>${esc(p.main)}</span>` : ""}
+            <span class="sp"></span>
+            <span class="go">${p.hasIndex ? "Abrir web →" : "Ver código →"}</span>
+          </div>
+        </div>
+      </a>`;
+          })
+          .join("");
+      }
+
+      $("#q").addEventListener("input", render);
+      $("#sort").addEventListener("change", render);
+
+      const found = detect();
+      if (found) load(found);
+      else
+        $("#grid").innerHTML =
+          '<div class="state"><b>Publícalo en GitHub Pages</b>Para leer las carpetas automáticamente, esta página debe estar en <code>tuusuario.github.io</code>.</div>';
+    </script>
+  </body>
+</html>
